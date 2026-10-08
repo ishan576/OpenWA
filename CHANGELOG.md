@@ -78,6 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- The integration docs say `integration_delivery_failures` holds only failed inbound deliveries.
 - The webhook runbook documents the ADMIN delivery-failure redrive and no longer says failed deliveries retry on their own.
 
 ### Upgrade notes (behavior changes)
