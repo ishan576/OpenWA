@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Refuse bulk batches once shutdown begins, and fail a batch saved during shutdown instead of sending it.
 - Disable plugins whose enable is still running at shutdown, and refuse new plugin enables during teardown.
 - Stop in-flight webhook replay, ingress replay and pending-message sweeps at shutdown.
 - Close queue workers before plugins shut down, so jobs taken during shutdown no longer spend attempts or get dead-lettered.
