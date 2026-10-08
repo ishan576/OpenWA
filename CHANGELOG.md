@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add opt-in archive-only chat media with dashboard previews.
 
+### Changed
+
+- CI and the weekly security scan run `npm audit` over the JavaScript SDK, and Dependabot watches its lockfile.
+
 ### Fixed
 
 - Apply the Java SDK request timeout to the response body as well as the headers.
