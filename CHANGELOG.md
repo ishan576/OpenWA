@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Stop in-flight webhook replay, ingress replay and pending-message sweeps at shutdown.
 - Close queue workers before plugins shut down, so jobs taken during shutdown no longer spend attempts or get dead-lettered.
 - Answer new HTTP requests with `503` once shutdown teardown begins.
 - Refuse session starts with `503` once shutdown begins, and leave a start that shutdown interrupts for the next boot instead of marking it failed.
