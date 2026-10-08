@@ -83,6 +83,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The integration docs say `integration_delivery_failures` holds only failed inbound deliveries.
 - The webhook runbook documents the ADMIN delivery-failure redrive and no longer says failed deliveries retry on their own.
 
+### Dependencies
+
+- `vitest` 2.1 to 4.1 in the JavaScript SDK tree, closing its dev-only advisories. Its tests now need Node 20+; the published package still supports Node 18.
+
 ### Upgrade notes (behavior changes)
 
 - Baileys answers `400` for an animated sticker with more than 500 frames.
