@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Close the Baileys session proxy's fetch dispatcher when the session disconnects, logs out or is destroyed.
 - Apply the Java SDK request timeout to the response body as well as the headers.
 - Keep a new dashboard template draft when an earlier template save finishes.
 - Stop the dashboard Chats page from marking the open chat read on a newly selected session.
