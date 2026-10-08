@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Refuse session starts with `503` once shutdown begins, and leave a start that shutdown interrupts for the next boot instead of marking it failed.
 - Retire the pending webhook outbox record when a redrive delivers, so the sweep does not send the event again.
 - Stop dashboard multi-page loads and a pending chat mark-as-read from sending requests after logout.
 - Keep a new dashboard login signed in when a request sent with the previous API key fails afterwards.
