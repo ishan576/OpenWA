@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Keep a new dashboard template draft when an earlier template save finishes.
 - Stop the dashboard Chats page from marking the open chat read on a newly selected session.
 - Refuse bulk batches once shutdown begins, and fail a batch saved during shutdown instead of sending it.
 - Disable plugins whose enable is still running at shutdown, and refuse new plugin enables during teardown.
