@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Stop reopening a just-saved dashboard template from loading its old values, which a second save wrote back.
 - Stop an operator webhook redrive at its next row on shutdown.
 - Run a plugin's `onDisable` once when shutdown, uninstall or an update overlaps a disable already in progress.
 - Answer `503` and keep the previous version when shutdown begins before an update of a plugin the operator switched on has applied.
