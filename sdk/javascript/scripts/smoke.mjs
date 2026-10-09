@@ -31,7 +31,7 @@ for (const [format, mod] of [
   }
 }
 
-// Request smoke: the Node 18 lane skips the unit tests (vitest 4 needs Node 20.19+ or 22.12+), and
+// Request smoke: the Node 18 and 20 lanes skip the unit tests (vitest 5 needs Node 22.12+), and
 // the typecheck accepts DOM-declared globals Node 18 lacks, so send real requests through each
 // build's client over the default global fetch: a parsed 2xx body, a typed error for a non-2xx, and
 // the abort timeout.
