@@ -194,7 +194,11 @@ export class BaileysLifecycle {
   private qrRenderSequence = 0;
   private phoneNumber: string | null = null;
   private pushName: string | null = null;
-  private intentionalClose = false;
+  /** Aborted by disconnect()/logout()/destroy(); the adapter is single-use from then on. */
+  private readonly teardown = new AbortController();
+  private get intentionalClose(): boolean {
+    return this.teardown.signal.aborted;
+  }
   private readonly versionResolver: BaileysVersionResolver;
   private connecting = false;
   private reconnectAttempts = 0;
@@ -216,6 +220,11 @@ export class BaileysLifecycle {
       sessionId: this.host.config.sessionId,
       logger: this.host.logger,
     });
+  }
+
+  /** The module once {@link loadLib} has loaded it, which happens before any socket exists. */
+  get loadedLib(): typeof BaileysLib | undefined {
+    return this.lib;
   }
 
   /** Lazily loaded @whiskeysockets/baileys module (ESM-only; loaded on first connect, not at boot). */
@@ -311,7 +320,16 @@ export class BaileysLifecycle {
     }
     const b = await this.loadLib();
     const { state, saveCreds } = await useAtomicMultiFileAuthState(this.host.authPath, b, this.host.logger);
-    const version = await this.versionResolver.resolve(b, { dispatcher: this.fetchDispatcher() });
+    // A teardown during those loads already closed the dispatcher: the lookup would build a new one
+    // that nothing closes and send the stopped session's requests through its proxy. One during the
+    // lookup aborts it, and the latch check below bails.
+    if (this.intentionalClose) {
+      return;
+    }
+    const version = await this.versionResolver.resolve(b, {
+      dispatcher: this.fetchDispatcher(),
+      signal: this.teardown.signal,
+    });
     // BaileysLogger matches ILogger exactly; cast needed because the module resolves the type
     // through a deep import path that TypeScript does not auto-unify here. Shared by the key
     // store wrapper below and the socket itself, rather than constructing two instances.
@@ -856,7 +874,7 @@ export class BaileysLifecycle {
   }
 
   disconnect(): Promise<void> {
-    this.intentionalClose = true;
+    this.teardown.abort();
     if (this.reconnectTimer) {
       clearTimeout(this.reconnectTimer);
       this.reconnectTimer = undefined;
@@ -874,7 +892,7 @@ export class BaileysLifecycle {
   }
 
   async logout(): Promise<void> {
-    this.intentionalClose = true;
+    this.teardown.abort();
     if (this.reconnectTimer) {
       clearTimeout(this.reconnectTimer);
       this.reconnectTimer = undefined;
@@ -1035,7 +1053,7 @@ export class BaileysLifecycle {
   }
 
   destroy(): Promise<void> {
-    this.intentionalClose = true;
+    this.teardown.abort();
     if (this.reconnectTimer) {
       clearTimeout(this.reconnectTimer);
       this.reconnectTimer = undefined;
