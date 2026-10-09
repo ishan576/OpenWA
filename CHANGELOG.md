@@ -110,12 +110,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- The integration docs say `integration_delivery_failures` is written only for failed inbound deliveries.
 - The API reference, database design, runbook and glossary describe when the webhook outbox copy is retired after a sweep replay or a redrive, and which rows neither path recovers.
 - Document the memory media messages and parked webhook deliveries hold during a media burst, and the settings that limit it.
 - The storage migration guide says to check the store size and file count against the import caps before switching backends, and how to re-run an aborted import.
 - The README and architecture docs describe the Local/S3 storage backend as the live media store, not a backup target.
 - Document how to recover a lost admin API key without revoking the other keys, on source, Compose and Helm installs.
-- The integration docs say `integration_delivery_failures` holds only failed inbound deliveries.
 - The webhook runbook documents the ADMIN delivery-failure redrive and no longer says failed deliveries retry on their own.
 
 ### Dependencies
