@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Answer `503` and keep the previous version when shutdown begins before an update of a plugin the operator switched on has applied.
 - Disable plugins whose enable is still running at shutdown, after the running ones, and refuse new plugin enables during teardown.
 - Refuse session starts with `503` once shutdown begins, including one already past its checks.
 - Leave a session start that shutdown interrupts for the next boot instead of marking it failed.
