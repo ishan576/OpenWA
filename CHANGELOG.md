@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Stop a request left over from before logout from reloading the dashboard login form.
 - Stop a dashboard Logs export from downloading rows after sign-out when its last page was throttled.
 - Stop reopening a just-saved dashboard template from loading its old values, which a second save wrote back.
 - Stop an operator webhook redrive at its next row on shutdown.
