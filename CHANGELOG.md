@@ -23,6 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- On PostgreSQL, inbound media that waits `2 x MEDIA_DOWNLOAD_TIMEOUT_MS` without a free slot arrives with the omitted marker instead of being downloaded.
+- On PostgreSQL, a chat's messages are stored in arrival order, so a text waits for earlier media in its chat.
+- On PostgreSQL with whatsapp-web.js, a held message's contact and quoted-message lookups wait at most `MEDIA_DOWNLOAD_TIMEOUT_MS`.
 - The JavaScript SDK release job runs `npm audit` over the SDK tree before it installs, tests and publishes.
 - The JavaScript SDK CommonJS build no longer sets `moduleResolution` node10, which TypeScript 7 removed; the built output is unchanged.
 - JavaScript SDK CI and release jobs install with `--engine-strict` wherever they run the tests, so an unsupported Node fails at install.
@@ -33,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Bound the inbound media a PostgreSQL session holds before storing it to `INBOUND_MEDIA_CONCURRENCY` payloads, keeping each chat's arrival order.
+- Drop a Baileys edit, revoke or reaction from another chat, or an edit or revoke from the wrong author, aimed at a message still being downloaded, on SQLite too.
 - Warn at storage export when a file is larger than the per-entry import cap `STORAGE_IMPORT_MAX_BYTES`.
 - Refuse a `PORT` with surrounding whitespace at boot instead of binding a port the image healthcheck cannot probe.
 - Skip or cancel the Baileys version lookup of a session stopped while it connects, so no proxy dispatcher outlives it.
