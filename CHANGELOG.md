@@ -126,7 +126,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Dependencies
 
 - `handlebars` 4.7.9 to 4.7.10, closing two critical advisories in which a crafted template could inject JavaScript into compiled output. It reaches the root tree only through `ts-jest`, so it is dev-only and nothing that ships changes.
-- `vitest` 2.1 to 4.1 in the JavaScript SDK tree, closing its dev-only advisories. Its tests now need Node 20.19+ or 22.12+; the published package still supports Node 18.
+- `vitest` 2.1 to 5 in the JavaScript SDK tree, closing its dev-only advisories, and `typescript` 5.9 to 7. Its unit tests now need Node 22.12+; the published package still supports Node 18.
 
 ### Upgrade notes (behavior changes)
 
