@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Refuse session starts with `503` once shutdown begins, including one already past its checks.
+- Leave a session start that shutdown interrupts for the next boot instead of marking it failed.
 - Destroy session engines at shutdown before waiting on a boot auto-start launch, and bound that wait, so a stalled launch no longer holds teardown past the kill deadline.
 - Stop taking ingress queue jobs once shutdown begins after SIGTERM, SIGINT or an admin restart, instead of running them against stopped sessions.
 - Run the daily ingress retention hand-off after a reconcile sweep in progress instead of skipping it.
@@ -50,7 +52,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stop in-flight webhook replay, ingress replay and pending-message sweeps at shutdown, waiting a bounded time for a replay in hand.
 - Close queue workers, waiting up to 15 s for running jobs, before plugins shut down, so no new job is taken against stopped plugins.
 - Answer new HTTP requests other than health probes with `503` once teardown begins after SIGTERM, SIGINT or `POST /api/infra/restart`.
-- Refuse session starts with `503` once shutdown begins, and leave a start that shutdown interrupts for the next boot instead of marking it failed.
 - Stop dashboard multi-page loads and a pending chat mark-as-read from sending requests after logout.
 - Keep a new dashboard login signed in when a request sent with the previous API key fails afterwards.
 - Enforce the plugin package size limit before reading `manifest.json`, and reject archive entries whose path starts with `/`.
