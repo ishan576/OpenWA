@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Warn at storage export when a file is larger than the per-entry import cap `STORAGE_IMPORT_MAX_BYTES`.
 - Refuse a `PORT` with surrounding whitespace at boot instead of binding a port the image healthcheck cannot probe.
 - Skip or cancel the Baileys version lookup of a session stopped while it connects, so no proxy dispatcher outlives it.
 - Stop a request left over from before logout from reloading the dashboard login form.
